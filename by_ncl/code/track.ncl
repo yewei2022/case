@@ -4,14 +4,15 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 ;********************************************************
 
-; ncl /mnt/h/d/ncl_related/code/track.ncl
+; ncl /mnt/d/case/code/by_ncl/code/track.ncl
 
 begin
 
 
 ; ???籩·??
-  fiTY = "/mnt/h/d/data/TC/bio042008.txt"
-  pic_dir="/mnt/h/d/ncl_related/pictures/storm/" 
+  ; fiTY = "/mnt/h/d/data/TC/bio042008.txt"
+  fiTY = "/mnt/f/snow_sts_data/BOB/bio201305.txt" 
+  pic_dir="/mnt/d/case/pic/" 
   ; ????????????????Ӧ?Ļ??numAsciiCol???????????
   nrow = numAsciiRow(fiTY)
  
@@ -38,7 +39,7 @@ begin
   ;MMi = mod(stringtoint(YYYYMMDDHH)/10000, 100)
  
 ; plot
-wks = gsn_open_wks("eps", pic_dir+"track")
+wks = gsn_open_wks("x11", pic_dir+"track")
  
 res = True
   res@gsnDraw = False
@@ -57,10 +58,10 @@ res = True
   res@tmXTOn = False 
   res@tmYROn = False
   ; ??????߽?
-  res@mpMinLatF = 15
+  res@mpMinLatF = 0
   res@mpMaxLatF = 30
-  res@mpMinLonF = 85.
-  res@mpMaxLonF = 100.
+  res@mpMinLonF = 70.
+  res@mpMaxLonF = 105.
   ; ????½???????????ɫѡȡrainbowɫ??еĵ?60????
   ; ???Ĭ?????
   ; res@mpLandFillColor = 155

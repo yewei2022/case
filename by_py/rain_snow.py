@@ -70,57 +70,62 @@ import numpy as np
         
 #%% 法二 pandas读取 #根据高原站点的降水相态标记 计算2600-2800、2612-2712的累计降雪量，降雨量，降水量
 
-phase1=pd.read_table("H:\\d\\data\\precipitation\\6h\\phase.txt",sep="\s+",
-                    header=None)
-phase1.columns=['sta','2606','2612','2618','2700','2706','2712',
-              '2718','2800','2806','2812','2818','2900']
-tp_sta=phase1.sta.tolist()
+# phase1=pd.read_table("H:\\d\\data\\precipitation\\6h\\phase.txt",sep="\s+",
+#                     header=None)
+# phase1.columns=['sta','2606','2612','2618','2700','2706','2712',
+#               '2718','2800','2806','2812','2818','2900']
+# tp_sta=phase1.sta.tolist()
 
-prep=pd.read_table("H:\\d\\data\\precipitation\\6h\\rain12_py.txt",sep="\s+")
-prep1=prep[prep.sta.isin(phase1.sta)].reset_index(drop=True)
+# prep=pd.read_table("H:\\d\\data\\precipitation\\6h\\rain12_py.txt",sep="\s+")
+# prep1=prep[prep.sta.isin(phase1.sta)].reset_index(drop=True)
 
-sta_info=prep1[['sta','lat','lon']]
-phase1.drop(columns = ['sta','2806','2812','2818','2900'],inplace = True)
-prep1.drop(columns = ['sta','lat','lon','2600_2900','2600_2800','2806','2812',
-                      '2818','2900'],inplace = True)
+# sta_info=prep1[['sta','lat','lon']]
+# phase1.drop(columns = ['sta','2806','2812','2818','2900'],inplace = True)
+# prep1.drop(columns = ['sta','lat','lon','2600_2900','2600_2800','2806','2812',
+#                       '2818','2900'],inplace = True)
 
-cols=prep1.shape[1]
-r=np.array(prep1)
-phase=np.array(phase1)
+# cols=prep1.shape[1]
+# r=np.array(prep1)
+# phase=np.array(phase1)
 
 
-r_total=np.zeros(len(tp_sta))
-s_total=np.zeros(len(tp_sta))
-prep_total=np.zeros(len(tp_sta))
-r_oneday=np.zeros(len(tp_sta))
-s_oneday=np.zeros(len(tp_sta))
-prep_oneday=np.zeros(len(tp_sta))
+# r_total=np.zeros(len(tp_sta))
+# s_total=np.zeros(len(tp_sta))
+# prep_total=np.zeros(len(tp_sta))
+# r_oneday=np.zeros(len(tp_sta))
+# s_oneday=np.zeros(len(tp_sta))
+# prep_oneday=np.zeros(len(tp_sta))
 
-for i in range(len(tp_sta)):
-    s12=np.zeros(cols) 
-    prep_total[i]=sum(r[i,:])
-    s12=np.where(phase[i,:]==2,r[i,:],0)
-    s_total[i]=sum(s12[:])
-    s_oneday[i]=sum(s12[2:6])
-    prep_oneday[i]=sum(r[i,2:6]) #索引[2:6]区间表示索引为2-5 即第3-6列这4列数据
-    r_total[i]=prep_total[i]-s_total[i]
-    r_oneday[i]=prep_oneday[i]-s_oneday[i]
-names=['tp_sta','r_total','s_total','prep_total','r_oneday','s_oneday','prep_oneday']
-df=pd.DataFrame(list(zip(tp_sta,r_total,s_total,prep_total,r_oneday,s_oneday,
-                          prep_oneday)),columns=names)
+# for i in range(len(tp_sta)):
+#     s12=np.zeros(cols) 
+#     prep_total[i]=sum(r[i,:])
+#     s12=np.where(phase[i,:]==2,r[i,:],0)
+#     s_total[i]=sum(s12[:])
+#     s_oneday[i]=sum(s12[2:6])
+#     prep_oneday[i]=sum(r[i,2:6]) #索引[2:6]区间表示索引为2-5 即第3-6列这4列数据
+#     r_total[i]=prep_total[i]-s_total[i]
+#     r_oneday[i]=prep_oneday[i]-s_oneday[i]
+# names=['tp_sta','r_total','s_total','prep_total','r_oneday','s_oneday','prep_oneday']
+# df=pd.DataFrame(list(zip(tp_sta,r_total,s_total,prep_total,r_oneday,s_oneday,
+#                           prep_oneday)),columns=names)
 
-# 添加位置信息 法一  循环添加
-lat_lon=[]
-for i in tp_sta:
-    ii=int(i)
-    lat_lon.append(sta_info.loc[sta_info["sta"] == ii,['lat','lon']])
-lat_lon_df = pd.concat(lat_lon,ignore_index=True)
-df1=pd.concat([lat_lon_df,df],axis=1)
+# # 添加位置信息 法一  循环添加
+# lat_lon=[]
+# for i in tp_sta:
+#     ii=int(i)
+#     lat_lon.append(sta_info.loc[sta_info["sta"] == ii,['lat','lon']])
+# lat_lon_df = pd.concat(lat_lon,ignore_index=True)
+# df1=pd.concat([lat_lon_df,df],axis=1)
 
 # # df1.to_csv("H:\\d\\data\\precipitation\\6h\\sta_r_s_total_py2600_2800.txt",
 # #             index = False,sep=' ',columns=['tp_sta','lat','lon','r_total','s_total',
 # #                                           'prep_total','r_oneday',
 # #                                           's_oneday','prep_oneday'])
+
+phase1=pd.read_table("D:\\case\\data\\precipitation\\6h\\sta_r_s_total_py2600_2800.txt",
+                     sep="\s+")
+a1=phase1[phase1['s_total']>0]
+a2=phase1[phase1['s_oneday']>0]
 
 #%% 用panda 计算2606-2718
 

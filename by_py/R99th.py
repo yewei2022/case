@@ -16,7 +16,7 @@ import numpy as np
 #! pre 可能有异常值 如何剔除参考 D:\搜狗高速下载\高原极端降水\xiong2019高原极端降水.pdf 
 
 # #读取pre
-pre=pd.read_table("F:\\snow_sts_data\\pre1981_2020.txt",sep='\s+',na_values=32700)
+pre=pd.read_table("F:\\snow_sts_data\\1981-2020\\pre1981_2020.txt",sep='\s+',na_values=32700)
 
 # dataframe 中缺失值不影响  np中会影响百分位阈值算法的结果，需去掉
 pre.dropna(axis=0, how='any',inplace=True) #删除任何有nan的行 

@@ -1,5 +1,6 @@
 #读取高原站号，经纬度，3日内所有6h降水量
 #计算累计降水量，保存为tp_rain12_py.txt
+#当时是在Ubuntu 的 PYNIO里运行的 当然这里也可以直接运行
 # python /mnt/d/py_related/code/tp_prep_6h_12.py
 
 import os
@@ -7,8 +8,8 @@ import numpy as np
 
 #1 读取高原站点
 tp_sta =[]
-sta_dir='/mnt/d/data/precipitation/6h/'
-with open(sta_dir+'TP_sta.txt') as sta_file:
+sta_dir='/mnt/d/data/precipitation/6h/TP_sta.txt'
+with open(sta_dir) as sta_file:
     lines=sta_file.readlines()
     for line in lines:
         data=line.split()

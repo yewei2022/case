@@ -1,9 +1,9 @@
 ;读取站点过程累计 降水量 降雨量，降雪量，组图
-;画降水彩色散点图(降水数据本身只包含高原站点)，剔除≤0.1的站点
+;画降水彩色散点图(降水数据本身只包含高原站点)，仅展示＞0.1mm的站点
 ;绘制地形3/4/5km等值线,并将等值线变稀疏（切除+平滑）
 ;文件读取方式 http://www.ncl.ucar.edu/Applications/list_io.shtml
 ;散点图参考 http://www.ncl.ucar.edu/Applications/polyg.shtml polyg_8_lbar.ncl
-;代码路径  ncl /mnt/h/d/ncl_related/code/rainfall_snowfall_topo2_panel.ncl
+;代码路径  ncl /mnt/d/case/code/by_ncl/FNL/rainfall_snowfall_topo2_panel.ncl
 
 
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
@@ -230,7 +230,7 @@ undef("mark_area")
 begin
   pic_path="/mnt/h/d/ncl_related/pictures/rain/"
 ;读地形文件
-  topo        = addfile("/mnt/h/d/data/other/ETOPO2v2c_f4.nc", "r")
+  topo        = addfile("/mnt/d/case/data/other/ETOPO2v2c_f4.nc", "r")
   elev        = topo->z({15:50},{70:110}) 
   ; printVarSummary(elev)
   ; exit 
@@ -250,7 +250,7 @@ begin
   elev&lon  = lon_topo
 
 ;读站点数据
-  filepath= "/mnt/h/d/data/precipitation/6h/sta_r_s_total_py2600_2800.txt"  ;参数文件路径
+  filepath= "/mnt/d/case/data/precipitation/6h/sta_r_s_total_py2600_2800.txt"  ;参数文件路径
   f1       = asciiread(filepath,-1,"string")
   sta     = stringtointeger(str_get_field(f1(1:),1," "))  ;读取站号
   lat     = stringtofloat(str_get_field(f1(1:),2," ")) 
@@ -269,7 +269,7 @@ begin
   R@_FillValue = 9999.0
   ;注意：这里的txt文件最后一行数据下面需要空白行，才能读出文件的正确行数
   ;大多数txt文件都满足要求，但还是需要核实一下
-  R=where(R.gt.0.1, R, R@_FillValue) ;剔除了小于等于0.1mm的降水
+  R=where(R.gt.0.1, R, R@_FillValue) ;仅展示＞0.1mm的降水
   ; print(num(.not.ismissing(R)))
   ; exit
   ; index=ind(prep_total.ge.50.) 
@@ -460,7 +460,7 @@ begin
   end do
 
   ;-单独在第一张图上绘制高原轮廓线-----------------
-  shp="/mnt/h/d/data/TPshp/DBATP/DBATP_Line.shp"  
+  shp="/mnt/d/case/data/TPshp/DBATP/DBATP_Line.shp"  
   lnres                  = True     
   lnres@gsLineColor      ="orange"
   lnres@gsLineThicknessF = 5.0           ; 6x thickness  

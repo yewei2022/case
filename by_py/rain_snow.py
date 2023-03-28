@@ -1,3 +1,7 @@
+"""
+计算过程累计、日累计的 降雪量，降雨量，降水量
+保存为sta_r_s_total_py2600_2800.txt
+"""
 
 import os
 import pandas as pd
@@ -122,12 +126,18 @@ import numpy as np
 # #                                           'prep_total','r_oneday',
 # #                                           's_oneday','prep_oneday'])
 
-phase1=pd.read_table("D:\\case\\data\\precipitation\\6h\\sta_r_s_total_py2600_2800.txt",
-                     sep="\s+")
-a1=phase1[phase1['s_total']>0]
-a2=phase1[phase1['s_oneday']>0]
 
-#%% 用panda 计算2606-2718
+#%% 测试 降雪站点数有多少
+
+# phase1=pd.read_table("D:\\case\\data\\precipitation\\6h\\sta_r_s_total_py2600_2800.txt",
+#                       sep="\s+")
+# a1=phase1[phase1['s_total']>=0.1]
+# a2=phase1[phase1['s_oneday']>=0.1]
+# print('累计降雪站次: {}, 单日降雪站次: {}'.format(len(a1),len(a2)))
+
+
+
+#%% pandas 计算2606-2718
 
 # phase1=pd.read_table("H:\\d\\data\\precipitation\\6h\\phase.txt",sep="\s+",
 #                     header=None)

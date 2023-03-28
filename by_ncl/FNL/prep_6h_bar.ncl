@@ -1,5 +1,5 @@
 
-;  ncl /mnt/h/d/ncl_related/code/prep_6h_bar.ncl
+;  ncl /mnt/d/case/code/by_ncl/FNL/prep_6h_bar.ncl
 
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
 load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
@@ -25,8 +25,8 @@ load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
 
 begin
 
-pic_dir ="/mnt/h/d/ncl_related/pictures/rain/"
-filepath= "/mnt/h/d/data/precipitation/6h/prep_6h_3sta.txt"  ;参数文件路径
+pic_dir ="/mnt/d/case/pic/rain/"
+filepath= "/mnt/d/case/data/precipitation/6h/prep_6h_3sta.txt"  ;参数文件路径
 f1      = asciiread(filepath,-1,"string")
 cona     = stringtointeger(str_get_field(f1,1," "))  ;读取站号
 bome     = stringtofloat(str_get_field(f1,2," ")) 
@@ -36,7 +36,7 @@ stdarr(:,0)=cona
 stdarr(:,1)=bome
 stdarr(:,2)=zayu
 
-wks = gsn_open_wks("ps",pic_dir+"prep_6h_bar")  ; send graphics to PNG file  
+wks = gsn_open_wks("eps",pic_dir+"prep_6h_bar")  ; send graphics to PNG file  
 gsn_define_colormap(wks,"wgne15")
 colors=(/14,8,4/) ;红 绿 蓝
 
@@ -72,10 +72,12 @@ sres@tmEqualizeXYSizes=True
 sres@tmXBLabelFontHeightF=0.018
 sres@tmXBLabelAngleF=45
 sres@gsnLeftStringFontHeightF=0.018
-sres@gsnLeftString="(d)"
+; sres@gsnLeftString="(d)"
 sres@gsnLeftStringOrthogonalPosF=-0.15
 sres@gsnLeftStringParallelPosF =0.018
 sres@txPerimOn=True
+
+sres@tiYAxisString = "Precipitation (mm)"
 
 xpos1=fspan(0.751,7.758,8) ;位置调整，先定头，再定尾
 intep=sres@gsnXYBarChartBarWidth

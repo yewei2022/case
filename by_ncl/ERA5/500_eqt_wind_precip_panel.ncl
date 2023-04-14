@@ -66,17 +66,17 @@ begin
 
 ;1 读取数据
   ;1.1 读取再分析资料
-  pic_dir  ="/mnt/e/d/ncl_related/pictures/eqt/ERA5/"
-  data_dir= "/mnt/e/d/data/ERA5/" 
+  pic_dir  = "/mnt/e/d/ncl_related/pictures/eqt/ERA5/"
+  data_dir = "/mnt/e/d/data/ERA5/" 
 
   data1    = addfile(data_dir+"ERA5.nc", "r") 
   plot_time=(/2008102612,2008102700,2008102706,2008102718/)
-  time     =data1->time(0:48:6)
+  time     = data1->time(0:48:6)
   YYYYMMDDHH_f= cd_calendar(time,-3)
   times=dimsizes(plot_time)
-  plot_time_ind=new(dimsizes(plot_time), integer)
+  plot_time_ind = new(dimsizes(plot_time), integer)
   do i =0,times-1
-    plot_time_ind(i) =str_match_ind(YYYYMMDDHH_f, plot_time(i))
+    plot_time_ind(i) = str_match_ind(YYYYMMDDHH_f, plot_time(i))
   end do
   ; print(YYYYMMDDHH_f)
   ; print(plot_time_ind)

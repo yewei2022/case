@@ -1,4 +1,4 @@
-; 一审前的图
+; 一审前的图 重新下载的
 ; 利用ERA5数据 某时次高度-湿弗劳德数图，v用850hpa-500hPa高度的每层风速
 ;时间改1处
 ;参考https://www.ncl.ucar.edu/Document/Functions/Built-in/linint2.shtml
@@ -63,6 +63,8 @@ begin
 	tvw= tmp*(1.0+0.61*w)  ;虚温
 	copy_VarCoords(tmp, tvw)
 	theta_v=pot_temp(pres_ipl, tvw, 0, False)  ; 虚位温，Pa,K
+  ; 虚位温还可这样算 Virtual potential temperature (K): thv = theta*(1+0.61w)
+  ; https://www.ncl.ucar.edu/Document/Functions/Contributed/rigrad_bruntv_atm.shtml
 
   ;3.2 湿静力稳定度
 	tdz1 = stdatmus_p2tdz(pres_ipl) ; 将气压(要求hPa)转换成高度 tdz(3,9) ,tdz(2,:)-height

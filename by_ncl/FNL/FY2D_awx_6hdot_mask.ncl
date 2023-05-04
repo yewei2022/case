@@ -177,7 +177,7 @@ res = True
  tbbres@gsnLeftStringFontHeightF     =0.025
  tbbres@gsnLeftStringOrthogonalPosF  =-0.12
  tbbres@gsnLeftStringParallelPosF    =0.01
- tbbres@txPerimOn=True
+ tbbres@txPerimOn = True ;标签背景框
  tbbres@txPerimThicknessF=2.5
  tbbres@txBackgroundFillColor ="white"
 
